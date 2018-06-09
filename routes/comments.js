@@ -39,6 +39,17 @@ router.get('/', function(req, res, next){
   });
 });
 
+router.delete('/:id', function (request, response) {
+  var id = request.params.id;
+
+  global.db.deleteComments(id, (error, result) => {
+      if(error){
+          return console.log(error);
+      }
+      response.status(204).json({});
+  })
+})
+
 /* POST comments listing. */
 router.post('/', function(req, res, next) {
   var data = {};

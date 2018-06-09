@@ -33,7 +33,7 @@ function updateBook(book, callback) {
     global.conn.collection("Comments").updateOne(updateFilter, updateOperation, callback);
 }
 
-function deleteBook(id, callback) {
+function deleteComments(id, callback) {
     var deleteFilter = {
         _id: new ObjectId(id)
     };
@@ -41,4 +41,4 @@ function deleteBook(id, callback) {
     global.conn.collection("Comments").deleteOne(deleteFilter, null, callback);
 }
 
-module.exports = { insertComments, findAllComments, findById, updateBook, deleteBook };
+module.exports = { insertComments, findAllComments, findById, updateBook, deleteComments };
