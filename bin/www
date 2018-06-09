@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+global.db = require('../mongoDbManager');
 var app = require('../app');
 var debug = require('debug')('sammy:server');
 var http = require('http');

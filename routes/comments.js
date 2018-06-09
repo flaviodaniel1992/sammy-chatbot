@@ -19,13 +19,39 @@ var mailOptions = {
   text: ''
 };
 
+router.get('/', function(req, res, next){
+  var query = req.query;
+  var params = {};
+
+  if(query.age){
+    params.age = Number(query.age);
+  }
+
+  if(query.userName){
+    params.userName = query.userName;
+  }
+
+  global.db.findAllComments(params, (error, books) => {
+    if (error) {
+        return console.log(error);
+    }
+    res.status(200).json(books);
+  });
+});
+
 /* POST comments listing. */
 router.post('/', function(req, res, next) {
   var data = {};
   data = req.body;
 
-  console.log('JSON: ' + JSON.stringify(data));
+  global.db.insertComments(data, (error, result) => {
+    if (error) {
+        return console.log(error);
+    }
+    res.status(201).json(data);
+  });
 
+    /*
   mailOptions.subject = 'RESPOSTA NÃO ENCONTRADA PELO USUÁRIO';
   mailOptions.text = JSON.stringify(data);
 
@@ -38,6 +64,7 @@ router.post('/', function(req, res, next) {
       }
   });
   res.status(200).json(data);
+  */
 });
 
 module.exports = router;
