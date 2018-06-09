@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
         return console.log(error);
     } else {
 
-      if(data.queryResult.intent.displayName == 'Perguntas_aleatória'){
+      if(data.queryResult.intent.displayName == 'Perguntas_aleatórias'){
         
         var p = {};
         p.refSession = refTokenSession;
