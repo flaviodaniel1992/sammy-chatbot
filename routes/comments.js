@@ -16,7 +16,7 @@ var mailOptions = {
   from: 'infracloud@sysmap.com.br',
   to: 'flavio.carmo@sysmap.com.br',
   subject: '',
-  text: ''
+  html: ''
 };
 
 router.get('/', function(req, res, next){
@@ -66,8 +66,66 @@ router.post('/', function(req, res, next) {
   global.db.insertComments(data, (error, result) => {
     if (error) {
         return console.log(error);
+    } else {
+
+      if(data.queryResult.action == 'input.unknown'){
+        
+        var p = {};
+        p.refSession = refTokenSession;
+
+        global.db.findAllComments(p, (error, rComments) => {
+          if (error) {
+              return console.log(error);
+          } else {
+
+            var userName = 'NÃO ENCONTRADO';
+
+            try{
+              rComments.forEach(function(c){
+                if(c.queryResult.outputContexts){
+                  if(c.queryResult.outputContexts.length){
+                    c.queryResult.outputContexts.forEach(function(p){
+                      if(p.parameters.userName){
+                        userName = p.parameters.userName;
+                      }
+                    })
+                  }
+                }
+            });
+            }catch(e){
+
+            }
+
+            var tr = '<span>Olá!<br />O usuário <b>' + userName + '</b> não conseguiu encontrar a solução de sua dúvida.</span><p><p>';
+
+            rComments.forEach(function(c){
+              tr = tr + '<span>Usuário: ' + c.queryResult.queryText + '</span><br/>'
+              tr = tr + '<span>Sammy: ' + c.queryResult.fulfillmentText + '</span><p>'
+            });
+
+            tr = tr + 'Att, <br />Sistemas'
+
+            mailOptions.subject = 'NOTIFICAÇÃO - SAMMY';
+            mailOptions.html = tr;
+
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                  return console.log('ERRO AO ENVIAR EMAIL: ' + error); 
+              } else {
+                console.log('MENSAGEM DE TESTE: %s', info.messageId);
+                console.log('INFO TESTE EMAIL: %s', nodemailer.getTestMessageUrl(info));
+              }
+            });
+
+            res.status(200).json(rComments);
+          }
+        });
+        //res.status(200).json(rComments);
+        
+      } else {
+        res.status(201).json(data);
+      }
     }
-    res.status(201).json(data);
   });
 
   /*
