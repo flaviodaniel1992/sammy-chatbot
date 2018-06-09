@@ -55,6 +55,14 @@ router.post('/', function(req, res, next) {
   var data = {};
   data = req.body;
 
+  var session = data.session;
+  var sessionArray = session.split('/');
+  var refTokenSession = sessionArray[4];
+
+  if(refTokenSession){
+    data.refSession = refTokenSession;
+  }
+
   global.db.insertComments(data, (error, result) => {
     if (error) {
         return console.log(error);
@@ -62,7 +70,7 @@ router.post('/', function(req, res, next) {
     res.status(201).json(data);
   });
 
-    /*
+  /*
   mailOptions.subject = 'RESPOSTA NÃO ENCONTRADA PELO USUÁRIO';
   mailOptions.text = JSON.stringify(data);
 
