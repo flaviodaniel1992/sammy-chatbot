@@ -107,7 +107,7 @@ router.post('/', function(req, res, next) {
 
             var tr = '';
 
-            if(tr){
+            if(userName){
               tr = '<span>Olá!<br />O usuário <b>' + userName + '</b> não conseguiu encontrar uma solução de sua dúvida.</span><p><p>';
             } else {
               tr = '<span>Olá!<br />O usuário não conseguiu encontrar uma solução de sua dúvida.</span><p><p>';
