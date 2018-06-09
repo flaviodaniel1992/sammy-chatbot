@@ -41,4 +41,8 @@ function deleteComments(id, callback) {
     global.conn.collection("Comments").deleteOne(deleteFilter, null, callback);
 }
 
-module.exports = { insertComments, findAllComments, findById, updateBook, deleteComments };
+function deleteAll(callback) {
+    global.conn.collection("Comments").remove({}, callback);
+}
+
+module.exports = { insertComments, findAllComments, findById, updateBook, deleteComments, deleteAll };

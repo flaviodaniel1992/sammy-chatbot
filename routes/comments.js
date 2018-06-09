@@ -48,6 +48,15 @@ router.delete('/:id', function (request, response) {
       }
       response.status(204).json({});
   })
+});
+
+router.delete('/', function (request, response) {
+  global.db.deleteAll((error, result) => {
+      if(error){
+          return console.log(error);
+      }
+      response.status(204).json({});
+  })
 })
 
 /* POST comments listing. */
