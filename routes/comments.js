@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
         return console.log(error);
     } else {
 
-      if(data.queryResult.action == 'input.unknown'){
+      if(data.queryResult.intent.displayName == 'Perguntas_aleatória'){
         
         var p = {};
         p.refSession = refTokenSession;
