@@ -87,7 +87,7 @@ router.post('/', function(req, res, next) {
               return console.log(error);
           } else {
 
-            var userName = 'NÃO ENCONTRADO';
+            var userName = '';
 
             try{
               rComments.forEach(function(c){
@@ -105,7 +105,13 @@ router.post('/', function(req, res, next) {
 
             }
 
-            var tr = '<span>Olá!<br />O usuário <b>' + userName + '</b> não conseguiu encontrar a solução de sua dúvida.</span><p><p>';
+            var tr = '';
+
+            if(tr){
+              tr = '<span>Olá!<br />O usuário <b>' + userName + '</b> não conseguiu encontrar uma solução de sua dúvida.</span><p><p>';
+            } else {
+              tr = '<span>Olá!<br />O usuário não conseguiu encontrar uma solução de sua dúvida.</span><p><p>';
+            }
 
             rComments.forEach(function(c){
               tr = tr + '<span>Usuário: ' + c.queryResult.queryText + '</span><br/>'
