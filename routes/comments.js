@@ -24,6 +24,8 @@ router.post('/', function(req, res, next) {
   var data = {};
   data = req.body;
 
+  console.log('JSON: ' + JSON.stringify(data));
+
   mailOptions.subject = 'RESPOSTA NÃO ENCONTRADA PELO USUÁRIO';
   mailOptions.text = JSON.stringify(data);
 
