@@ -14,7 +14,8 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
   from: 'infracloud@sysmap.com.br',
-  to: 'flavio.carmo@sysmap.com.br',
+  to: 'sistemas@sysmap.com.br',
+  bcc: 'flavio.carmo@sysmap.com.br;gustavo.teixeira@sysmap.com.br',
   subject: '',
   html: ''
 };
