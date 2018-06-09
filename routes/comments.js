@@ -103,7 +103,7 @@ router.post('/', function(req, res, next) {
               tr = tr + '<span>Sammy: ' + c.queryResult.fulfillmentText + '</span><p>'
             });
 
-            tr = tr + 'Att, <br />Sistemas'
+            tr = tr + '<br>Att, <br />Sistemas'
 
             mailOptions.subject = 'NOTIFICAÇÃO - SAMMY';
             mailOptions.html = tr;
